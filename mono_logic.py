@@ -1,4 +1,5 @@
 import numpy as np
+import itertools as iter
 
 
 def ready_num():
@@ -358,6 +359,55 @@ def try_3():
                     elif sheet[i, j] == 1:
                         posflg = False
                 if j == -1:
+                    break
+
+
+def try_4():
+    for i, l_row in zip(range(rnum), ll_row):
+        if check['row'][i] == 0:
+            ll_pattern = []
+            posnum = len(l_row) + 1
+            minum = cnum - sum(l_row)
+            j = 0
+            l_mipat = []
+            while True:
+                l_mipat.extend([j] * posnum)
+                j += 1
+                if j == minum + 1:
+                    break
+            l_mipat = list(iter.permutations(l_mipat, posnum))
+            l_mipat = list(set(l_mipat))
+            j = 0
+            while True:
+                if sum(l_mipat[j]) != minum:
+                    del l_mipat[j]
+                else:
+                    j += 1
+                if j == len(l_mipat):
+                    break
+            if posnum > 2:
+                j = 0
+                while True:
+                    if 0 in l_mipat[j][1:-1]:
+                        del l_mipat[j]
+                    else:
+                        j += 1
+                    if j == len(l_mipat):
+                        break
+            j = 0
+            while True:
+                l_pattern = []
+                k = 0
+                while True:
+                    l_pattern.extend([-1] * l_mipat[j][k])
+                    l_pattern.extend([1] * l_row[k])
+                    k += 1
+                    if k == len(l_row):
+                        break
+                l_pattern.extend([-1] * l_mipat[k])
+                ll_pattern.append(l_pattern)
+                j += 1
+                if j == len(l_mipat):
                     break
 
 
