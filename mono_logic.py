@@ -1,6 +1,7 @@
 import numpy as np
 
 
+# 行と列の数、ブロックの要素の入力
 def ready_num():
     ll_row = []
     ll_column = []
