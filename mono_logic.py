@@ -117,14 +117,71 @@ def try_2():
 def try_3():
     # 上
     for i, l_column in zip(range(cnum), ll_column):
-        if check['column'][i] == 0 and sheet[0, i] != 0:
-            if sheet[0, i] == 1:
-                num = 1
-                for j in range(1, rnum):
-                    if sheet[j, i] == 1:
+        if sheet[0, i] == 1:
+            j = 1
+            pos = 0
+            num = 1
+            posflg = False
+            while True:
+                if sheet[j, i] == 1:
+                    num += 1
+                elif sheet[j, i] == -1:
+                    if sheet[j - 1, i] == 1:
+                        pos += 1
+                        posflg = True
+                else:
+                    if l_column[pos] > num:
+                        sheet[j, i] = 1
                         num += 1
-                    else:
+                    if l_column[pos] == num:
+                        sheet[j, i] = -1
+                        num = 0
+                        pos += 1
+                        posflg = True
+                j += 1
+                if posflg:
+                    if sheet[j, i] == 0:
                         break
+                    elif sheet[j, i] == 1:
+                        posflg = False
+                if j == rnum:
+                    break
+        elif sheet[0, i] == -1:
+            j = 1
+            pos = 0
+            num = 0
+            posflg = False
+            while True:
+                if sheet[j, i] == 1:
+                    num += 1
+                elif sheet[j, i] == -1:
+                    if sheet[j - 1, i] == 1:
+                        pos += 1
+                        posflg = False
+                else:
+                    if num == 0:
+                        break
+                    elif num > 0:
+                        if num == l_column[pos]:
+                            sheet[j, i] = -1
+                            pos += 1
+                            posflg = True
+                        else:
+                            sheet[j, i] = 1
+                j += 1
+                if posflg:
+                    if sheet[j, i] == 0:
+                        break
+                    elif sheet[j, i] == 1:
+                        posflg = False
+                if j == rnum:
+                    break
+        j = 0
+        cnt = 0
+        while True:
+            if sheet[j, i] == 1:
+                break
+            elif sheet[j, i] == 0:
     # 下
     # 左
     # 右
